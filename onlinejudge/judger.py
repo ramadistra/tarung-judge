@@ -55,7 +55,8 @@ def match(expected_output, response):
             result.append(Attempt.ACCEPTED if status == 'OK' else Attempt.RUNTIME_ERROR)
         else:
             result.append(Attempt.WRONG_ANSWER if status == 'OK' else Attempt.RUNTIME_ERROR)
-            verdict = Attempt.WRONG_ANSWER
+            if verdict == Attempt.ACCEPTED:
+                verdict = Attempt.WRONG_ANSWER
 
     return result, verdict
 
