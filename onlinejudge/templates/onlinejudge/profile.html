@@ -7,7 +7,7 @@
 <h2>Latest Solves</h2>
 {% for solve in solves %}
 <li>Solved 
-    <a href={% url 'detail' solve.question.id %}>{{ solve.question.title }}</a> 
+    <a href="{{ solve.question.get_absolute_url }}">{{ solve.question.title }}</a> 
     at {{ solve.attempt_date }}</li>
 {% endfor %}
 {% endblock %}
