@@ -12,7 +12,7 @@
 <h2><a href="{% url 'home' %}">Online Judge</a></h2>
 {% block login_status %}
 {% if user.is_authenticated %}
-<p>Welcome, {{ user.username }}. <a href="{% url 'logout' %}">log out</a></p>
+<p>Welcome, {{ user.first_name }}. <a href="{% url 'logout' %}">log out</a></p>
 {% else %}
 <p>You are not signed in, <a href="{% url 'login' %}">log in.</a></p>
 {% endif %}
