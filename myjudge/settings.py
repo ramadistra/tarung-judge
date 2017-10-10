@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'onlinejudge',
-    #'cas'
+    'cas'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,7 +55,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    #'cas.middleware.CASMiddleware'
+    'cas.middleware.CASMiddleware'
 )
 
 ROOT_URLCONF = 'myjudge.urls'
@@ -144,18 +144,16 @@ STATICFILES_DIRS = (
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# AUTHENTICATION_BACKENDS = (
-#     'django.contrib.auth.backends.ModelBackend',
-#     'cas.backends.CASBackend',
-# )
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'cas.backends.CASBackend',
+)
 
-# CAS_RESPONSE_CALLBACKS = 'myjudge.callbackfunction'
+CAS_RESPONSE_CALLBACKS = ('myjudge.callbackfunction.callbackfunction',)
 
 # My settings
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = "/login"
 JUDGER_URL = os.getenv("JUDGER_URL")
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-judge.herokuapp.com']
-CAS_SERVER_URL = "https://sso.ui.ac.id/cas2"
-CAS_LOGOUT_COMPLETELY = True
-CAS_PROVIDE_URL_TO_LOGOUT = True
+CAS_SERVER_URL = "http://sso.ui.ac.id/cas2/dev"
