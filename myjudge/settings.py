@@ -156,6 +156,4 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = "/login"
 JUDGER_URL = os.getenv("JUDGER_URL")
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-judge.herokuapp.com']
-CAS_SERVER_URL = "https://sso.ui.ac.id/cas2/dev"
-CAS_LOGOUT_COMPLETELY = True
-CAS_PROVIDE_URL_TO_LOGOUT = True
+CAS_SERVER_URL = "http://sso.ui.ac.id/cas2/dev"
