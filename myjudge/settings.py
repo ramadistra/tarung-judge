@@ -149,7 +149,7 @@ AUTHENTICATION_BACKENDS = (
     'cas.backends.CASBackend',
 )
 
-# CAS_RESPONSE_CALLBACKS = 'myjudge.callbackfunction'
+CAS_RESPONSE_CALLBACKS = ('myjudge.callbackfunction.callbackfunction',)
 
 # My settings
 LOGIN_REDIRECT_URL = '/'
