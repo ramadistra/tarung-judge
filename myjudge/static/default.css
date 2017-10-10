@@ -1,0 +1,27 @@
+li {
+    margin: 0.75em 0;
+}
+
+body {
+margin: 0 auto;
+max-width: 48em;
+margin-top: 4em;
+padding: 0.5% 2em 8em 1.5em;
+font-weight: 200;
+line-height: 1.5;
+letter-spacing: .01em;
+}
+
+.btn-bd-blue {
+    font-weight: 500;
+    color: #007bff;
+    border-color: #007bff;
+    background-color: white;
+}
+
+.btn-bd-blue:active, .btn-bd-blue:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    cursor: pointer;
+}

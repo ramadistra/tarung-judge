@@ -1,26 +1,13 @@
+{% load staticfiles %}
 <html>
 <head>
     <title>My Judge | {% block title %}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'default.css' %}">
     {% block head %}{% endblock %}
 </head>
-
-<style>
-        li {
-            margin: 0.75em 0;
-        }
-        body {
-        margin: 0 auto;
-        max-width: 48em;
-        margin-top: 4em;
-        padding: 0.5% 2em 8em 1.5em;
-        font-weight: 200;
-        line-height: 1.5;
-        letter-spacing: .01em;
-        }
-</style>
 
 <h2><a href="{% url 'home' %}">Online Judge</a></h2>
 {% block login_status %}

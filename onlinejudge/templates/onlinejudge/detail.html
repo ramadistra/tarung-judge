@@ -15,8 +15,10 @@
 <form action={% url 'submit' question.slug %} method=post style="margin-top: 0.5em;">
     {% csrf_token %}
     <textarea id="editor" name="source" rows="18" cols="64"></textarea>
-    <br><br>
-    <input type="submit" value="Submit">
+    <br>
+    <div class="text-right">
+        <input type="submit" class="btn btn-bd-blue" onclickvalue="Submit">
+    </div>
 </form>
 <script>
         var myCodeMirror = CodeMirror.fromTextArea(
