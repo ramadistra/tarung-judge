@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
+from requests import ConnectionError
 
 from .models import Question, Attempt, User, Category
 from .forms import SignUpForm
@@ -19,7 +20,6 @@ def home(request):
     return render(request, 'onlinejudge/index.html', context)
 
 
-@login_required
 def detail(request, slug):
     question = get_object_or_404(Question, slug=slug,
                                 published_date__lte=timezone.now())
@@ -33,14 +33,18 @@ def submit(request, slug):
     question = get_object_or_404(Question, slug=slug)
     source = request.POST["source"]
     attempt = Attempt(user=user, question=question)
-    result = judge(source, question)
-    status = result['verdict']
-    attempt.status = status
-    attempt.first_solve = status == 1 and not question.is_solved_by(user)
-    attempt.source = source
-    attempt.save()
-    attempt_id = attempt.id
-    return redirect('result', slug=slug, attempt_id=attempt_id)
+    try:
+        result = judge(source, question)
+    except ConnectionError:
+        return redirect('judger-offline', slug=slug)
+    else:
+        status = result['verdict']
+        attempt.status = status
+        attempt.first_solve = status == 1 and not question.is_solved_by(user)
+        attempt.source = source
+        attempt.save()
+        attempt_id = attempt.id
+        return redirect('result', slug=slug, attempt_id=attempt_id)
 
 
 @login_required
@@ -83,4 +87,8 @@ def signup(request):
                              first_name=first_name, last_name=last_name)
 
     return redirect('login')
+
+
+def judger_offline(request, slug):
+    return render(request, 'onlinejudge/judger-offline.html')
    
