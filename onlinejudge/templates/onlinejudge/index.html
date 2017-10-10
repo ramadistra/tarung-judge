@@ -1,0 +1,25 @@
+{% extends "onlinejudge/base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+
+<h2>Questions</h2>
+<div style="margin-top:1.25em">
+{% for category in categories %}
+<h4>{{category.name}}</h4>
+    {% for question in category.latest_questions %}
+    <li style="margin-left:0.25em"><a href="{{ question.get_absolute_url }}">{{ question.title }}</a> (Solves: {{ question.solves }})</li>
+    {% endfor %}<br>
+{% endfor %}
+</div>
+
+<h2>Latest Solves</h2>
+<div style="margin-left:0.25em">
+{% for attempt in latest_solves %}
+<li><a href={% url 'profile' attempt.user.username %}>{{ attempt.user.username }}</a> solved 
+    <a href="{{ attempt.question.get_absolute_url }}">{{ attempt.question.title }}</a> 
+    at {{ attempt.attempt_date }}</li>
+{% endfor %}
+</div>
+
+{% endblock %}
+

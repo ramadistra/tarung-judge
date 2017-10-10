@@ -1,0 +1,16 @@
+{
+  "name": "Django Djudge",
+  "description": "Online judge built with django",
+  "image": "heroku/python",
+  "repository": "https://github.com/ramadistra/django-djudge",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ],
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python manage.py collectstatic --noinput",
+        "test": "python manage.py test"
+      }
+    }
+  }
+}

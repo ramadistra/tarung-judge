@@ -1,0 +1,32 @@
+{% extends "onlinejudge/base.html" %}
+{% load staticfiles %}
+{% block head %}
+<script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+<link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}">
+<script src="{% static 'codemirror/mode/python/python.js' %}"></script>
+{% endblock %}
+{% block title %}{{ question.title }}{% endblock %}
+{% block body %}
+<h3>{{ question.title }}</h3>
+<div>
+{{ question.question_body|safe }}
+</div><br>
+<strong>Answer: </strong>
+<form action={% url 'submit' question.slug %} method=post style="margin-top: 0.5em;">
+    {% csrf_token %}
+    <textarea id="editor" name="source" rows="18" cols="64"></textarea>
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+<script>
+        var myCodeMirror = CodeMirror.fromTextArea(
+            document.getElementById("editor"), {
+                indentUnit: 4,
+                extraKeys: {
+                    "Tab": function(cm){
+                        cm.replaceSelection("    " , "end");
+                    }
+                }
+        });
+</script>
+{% endblock %}

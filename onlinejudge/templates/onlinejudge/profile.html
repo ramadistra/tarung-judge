@@ -1,0 +1,13 @@
+{% extends "onlinejudge/base.html" %}
+{% block title %}@{{ account.username }}{% endblock %}
+{% block body %}
+<h2>{{ account.first_name }} {{ account.last_name }}</h2>
+<p>@{{ account.username }}</p><br>
+
+<h2>Latest Solves</h2>
+{% for solve in solves %}
+<li>Solved 
+    <a href={% url 'detail' solve.question.id %}>{{ solve.question.title }}</a> 
+    at {{ solve.attempt_date }}</li>
+{% endfor %}
+{% endblock %}
