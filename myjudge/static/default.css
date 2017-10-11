@@ -17,6 +17,10 @@ letter-spacing: .01em;
     color:  #007bff !important;
 }
 
+.navbar{
+    padding: 0.125em 1em;
+}
+
 .sample{
     background:#eff2f5; 
     padding:8px; 
