@@ -12,14 +12,5 @@
 {% endfor %}
 </div>
 
-<h2>Latest Solves</h2>
-<div style="margin-left:0.25em">
-{% for attempt in latest_solves %}
-<li><a href={% url 'profile' attempt.user.username %}>{{ attempt.user.username }}</a> solved 
-    <a href="{{ attempt.question.get_absolute_url }}">{{ attempt.question.title }}</a> 
-    at {{ attempt.attempt_date }}</li>
-{% endfor %}
-</div>
-
 {% endblock %}
 

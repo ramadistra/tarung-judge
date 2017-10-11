@@ -10,14 +10,19 @@ from .forms import SignUpForm
 from .judger import judge
 
 def home(request):
-    # List of latest published Questions
-    latest_solves = Attempt.latest_solves()[:10]
     categories = Category.objects.all()
     context = {
         'categories': categories,
-        'latest_solves':latest_solves,
         }
     return render(request, 'onlinejudge/index.html', context)
+
+def activity(request):
+    # List of latest published Questions
+    latest_solves = Attempt.latest_solves()[:50]
+    context = {
+        'latest_solves':latest_solves,
+        }
+    return render(request, 'onlinejudge/activity.html', context)
 
 
 def detail(request, slug):
