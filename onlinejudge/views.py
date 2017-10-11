@@ -11,8 +11,8 @@ from .judger import judge
 
 def home(request):
     # List of latest published Questions
-    latest_solves = Attempt.latest_solves()
-    categories = Category.objects.all()[:10]
+    latest_solves = Attempt.latest_solves()[:10]
+    categories = Category.objects.all()
     context = {
         'categories': categories,
         'latest_solves':latest_solves,
