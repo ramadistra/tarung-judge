@@ -12,7 +12,7 @@ from .judger import judge
 def home(request):
     # List of latest published Questions
     latest_solves = Attempt.latest_solves()
-    categories = Category.objects.all()
+    categories = Category.objects.all()[:10]
     context = {
         'categories': categories,
         'latest_solves':latest_solves,
