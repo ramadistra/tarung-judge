@@ -65,6 +65,10 @@ class Question(models.Model):
             return "0"
         return "{0:.2f}".format(self.solves/self.total*100)
 
+    @property
+    def is_published(self):
+        return self.published_date <= timezone.now()
+
     # Check whether the question has been answered by a user.
     def is_solved_by(self, user):
         return bool(self.attempt_set.filter(status=1, user=user))
@@ -90,12 +94,14 @@ class Attempt(models.Model):
     RUNTIME_ERROR = 2
     SERVER_ERROR = 3
     TIMED_OUT = 4
+    TESTING = -1
     STATUS_CHOICES = (
         (WRONG_ANSWER, 'Wrong Answer'),
         (ACCEPTED, 'Accepted'),
         (RUNTIME_ERROR, 'Runtime Error'),
         (SERVER_ERROR, 'Server Error'),
         (TIMED_OUT, 'Timed Out'),
+        (TESTING, 'Accepted (Testing)'),
     )
 
     # Attempt Information
@@ -117,4 +123,8 @@ class Attempt(models.Model):
         return cls.objects.filter(first_solve=True, user=user).order_by('-attempt_date')
 
     def __str__(self):
-        return "{} -> {}".format(self.user.username, self.question.title)
+        return "{} -> {} (status: {})".format(
+            self.user.username,
+            self.question.title,
+            self.status
+        )

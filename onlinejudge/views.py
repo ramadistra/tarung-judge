@@ -21,8 +21,11 @@ def home(request):
 
 
 def detail(request, slug):
-    question = get_object_or_404(Question, slug=slug,
-                                published_date__lte=timezone.now())
+    if request.user.is_staff:
+        question = get_object_or_404(Question, slug=slug)
+    else:
+        question = get_object_or_404(Question, slug=slug,
+                                     published_date__lte=timezone.now())
     context = {'question':question}
     return render(request, 'onlinejudge/detail.html', context)
 
@@ -40,7 +43,10 @@ def submit(request, slug):
     else:
         status = result['verdict']
         attempt.status = status
-        attempt.first_solve = status == 1 and not question.is_solved_by(user)
+        # If question is not published, replace AC with AC (Testing).
+        if status == 1 and not question.is_published:
+            attempt.status = 5
+        attempt.first_solve = attempt.status == 1 and not question.is_solved_by(user)
         attempt.source = source
         attempt.save()
         attempt_id = attempt.id
