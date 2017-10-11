@@ -13,13 +13,13 @@
 {{ question.description }}
 </div><br>
 {% for case in question.sample_cases %}
-<div style="padding-bottom: 14px;">
+<div style="padding: 8px 0 12px 0;">
 <b>Input #{{ forloop.counter }}</b>
 <pre class="sample">{{ case.stdin }}</pre>
 <b>Output #{{ forloop.counter }}</b>
 <pre class="sample">{{ case.stdout }}</pre>
 </div>
-{% endfor %}
+{% endfor %}<br>
 <strong>Answer: </strong>
 <form action={% url 'submit' question.slug %} method=post style="margin-top: 0.5em;">
     {% csrf_token %}
