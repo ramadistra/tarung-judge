@@ -6,11 +6,20 @@
 <script src="{% static 'codemirror/mode/python/python.js' %}"></script>
 {% endblock %}
 {% block title %}{{ question.title }}{% endblock %}
+
 {% block body %}
 <h3>{{ question.title }}</h3>
 <div>
-{{ question.question_body|safe }}
+{{ question.description }}
 </div><br>
+{% for case in question.sample_cases %}
+<div style="padding-bottom: 14px;">
+<b>Input #{{ forloop.counter }}</b>
+<pre class="sample">{{ case.stdin }}</pre>
+<b>Output #{{ forloop.counter }}</b>
+<pre class="sample">{{ case.stdout }}</pre>
+</div>
+{% endfor %}
 <strong>Answer: </strong>
 <form action={% url 'submit' question.slug %} method=post style="margin-top: 0.5em;">
     {% csrf_token %}

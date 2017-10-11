@@ -35,7 +35,7 @@ class Question(models.Model):
 
     # Question Body
     title = models.CharField(max_length=64, unique=True, db_index=True)
-    question_body = models.TextField()
+    description = models.TextField()
 
     # Question Details
     slug = models.SlugField(max_length=64, unique=True, db_index=True)
@@ -45,7 +45,11 @@ class Question(models.Model):
 
     @property
     def cases(self):
-        return self.case_set.all()
+        return self.case_set.filter(sample_case=False).all()
+
+    @property
+    def sample_cases(self):
+        return self.case_set.filter(sample_case=True).all()
 
     @property
     def solves(self):
@@ -77,6 +81,7 @@ class Case(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     stdin = models.TextField()
     stdout = models.TextField()
+    sample_case = models.BooleanField(default=False)
 
 
 class Attempt(models.Model):

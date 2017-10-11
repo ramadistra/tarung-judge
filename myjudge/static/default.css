@@ -15,7 +15,7 @@ letter-spacing: .01em;
 .sample{
     background:#eee; 
     padding:8px; 
-    margin-top:8px;
+    margin: 8px 0 12px 0;
 }
 
 .btn-bd-blue {
