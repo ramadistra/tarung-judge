@@ -2,7 +2,7 @@
 {% block title %}Result{% endblock %}
 {% block body %}
 Verdict: 
-{% if attempt.status == 1 %} accepted :D 
+{% if attempt.status == 1 or attempt.status == 5 %} accepted :D 
 {% elif attempt.status == 0 %} wrong :( 
 {% else %} error<br><br>diperiksa lagi ya kodingannya :)
 {% endif %}
