@@ -12,6 +12,12 @@ line-height: 1.5;
 letter-spacing: .01em;
 }
 
+.sample{
+    background:#eee; 
+    padding:8px; 
+    margin-top:8px;
+}
+
 .btn-bd-blue {
     font-weight: 500;
     color: #007bff;
