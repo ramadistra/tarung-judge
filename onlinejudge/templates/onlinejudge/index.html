@@ -9,8 +9,9 @@
     {% for question in category.latest_questions %}
     <li style="margin-left:0.25em"><a href="{{ question.get_absolute_url }}">{{ question.title }}</a> (Solves: {{ question.solves }})</li>
     {% endfor %}
-{% endfor %}
 </div>
+{% endfor %}
+
 
 {% endblock %}
 
