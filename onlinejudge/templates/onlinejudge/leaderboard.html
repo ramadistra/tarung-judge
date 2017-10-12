@@ -1,0 +1,33 @@
+{% extends "onlinejudge/base.html" %}
+
+{% block body %}
+<h3>Scoreboard</h3>
+<br>
+<table class="table table-striped">
+<thead class="thead-inverse">
+        <tr>
+            <td width="10px"><b>#</b>
+            </td>
+            <td><b>User</b>
+            </td>
+            <td><b>Score</b>
+            </td>
+        </tr>
+</thead>
+<tbody>
+{% for user, score in leaderboard %}
+<tr>
+<td>{{forloop.counter}}</td>
+<td>
+<a href="{% url 'profile' user.username %}">{{user.username}}</a>
+</td>
+<td>
+{{score}}
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+{% endblock %}

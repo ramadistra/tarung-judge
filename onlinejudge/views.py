@@ -9,19 +9,17 @@ from .models import Question, Attempt, User, Category
 from .forms import SignUpForm
 from .judger import judge
 
+
 def home(request):
     categories = Category.objects.all()
-    context = {
-        'categories': categories,
-        }
+    context = {'categories': categories}
     return render(request, 'onlinejudge/index.html', context)
+
 
 def activity(request):
     # List of latest published Questions
     latest_solves = Attempt.latest_solves()[:50]
-    context = {
-        'latest_solves':latest_solves,
-        }
+    context = {'latest_solves':latest_solves}
     return render(request, 'onlinejudge/activity.html', context)
 
 
@@ -33,6 +31,7 @@ def detail(request, slug):
                                      published_date__lte=timezone.now())
     context = {'question':question}
     return render(request, 'onlinejudge/detail.html', context)
+
 
 
 @login_required
@@ -76,28 +75,17 @@ def profile(request, username):
     context = {'account':user, 'solves':latest_solves}
     return render(request, 'onlinejudge/profile.html', context)
 
+def user_score(user):
+    return sum(a.question.difficulty for a in user.attempt_set.filter(status=1, first_solve=True))
 
-def signup(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-
-    if not request.method == 'POST':
-        form = SignUpForm()
-        return render(request, 'registration/signup.html', {'form': form})
-
-    form = SignUpForm(request.POST)
-    if not form.is_valid():
-        return render(request, 'registration/signup.html', {'form': form})
-
-    email = form.cleaned_data["email"]
-    username = form.cleaned_data["username"]
-    password = form.cleaned_data["password"]
-    first_name = form.cleaned_data["first_name"]
-    last_name = form.cleaned_data["last_name"]
-    User.objects.create_user(username, email, password,
-                             first_name=first_name, last_name=last_name)
-
-    return redirect('login')
+def leaderboard(request):
+    users = User.objects.all()
+    users_score = [(user, user_score(user)) for user in users]
+    leaderboard = sorted(users_score, key=lambda x: x[1], reverse=True)
+    context = {
+        'leaderboard': leaderboard
+    }
+    return render(request, 'onlinejudge/leaderboard.html', context)
 
 
 def judger_offline(request, slug):
