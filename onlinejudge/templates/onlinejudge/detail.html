@@ -23,21 +23,24 @@
 <strong>Answer: </strong>
 <form action={% url 'submit' question.slug %} method=post style="margin-top: 0.5em;">
     {% csrf_token %}
-    <textarea id="editor" name="source" rows="18" cols="64"></textarea>
+    <textarea id="editor" name="source" rows="18" cols="64" value=""></textarea>
     <br>
     <div class="text-right">
         <input type="submit" class="btn btn-bd-blue" onclickvalue="Submit">
     </div>
 </form>
 <script>
-        var myCodeMirror = CodeMirror.fromTextArea(
-            document.getElementById("editor"), {
+        textArea = document.getElementById("editor");
+        var myCodeMirror = CodeMirror(function(elt) {
+            textArea.parentNode.replaceChild(elt, textArea);
+            }, {
+                value: "{{question.parsed_template}}",
                 indentUnit: 4,
                 extraKeys: {
                     "Tab": function(cm){
                         cm.replaceSelection("    " , "end");
-                    }
                 }
+            }
         });
 </script>
 {% endblock %}

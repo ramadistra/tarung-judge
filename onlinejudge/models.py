@@ -42,6 +42,11 @@ class Question(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     published_date = models.DateTimeField(default=timezone.now)
     difficulty = models.IntegerField(choices=DIFFICULTY_CHOICES)
+    template = models.TextField(default="")
+
+    @property
+    def parsed_template(self):
+        return self.template.replace("\r\n", "\\n")
 
     @property
     def cases(self):

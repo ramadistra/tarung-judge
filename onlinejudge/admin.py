@@ -9,7 +9,7 @@ class ChoiceInline(admin.StackedInline):
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': ['title', 'category', 'difficulty', 'description']}),
+        (None,               {'fields': ['title', 'category', 'difficulty', 'description', 'template']}),
         ('Details',          {'fields': ['slug', 'published_date']}),
     ]
     inlines = [ChoiceInline]
