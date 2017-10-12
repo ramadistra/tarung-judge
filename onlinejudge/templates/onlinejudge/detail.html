@@ -8,9 +8,9 @@
 {% block title %}{{ question.title }}{% endblock %}
 
 {% block body %}
-<h3>{{ question.title }}</h3>
+<h2>{{ question.title }}</h2>
 <div>
-{{ question.description }}
+[{{question.difficulty}}] {{ question.description }}
 </div><br>
 {% for case in question.sample_cases %}
 <div style="padding: 8px 0 12px 0;">
