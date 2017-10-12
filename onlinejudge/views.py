@@ -86,7 +86,8 @@ def get_latest_solve(tup):
 
 
 def leaderboard(request):
-    users = User.objects.all()
+    # Only select users who have solved a question.
+    users = User.objects.filter(attempt__first_solve=True).distinct()
     users_score = [(user, count_score(user)) for user in users]
     users_latest_solve = sorted(users_score, key=get_latest_solve)
     leaderboard = sorted(users_latest_solve, key=lambda x: x[1], reverse=True)
