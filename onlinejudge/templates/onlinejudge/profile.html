@@ -5,9 +5,30 @@
 <p>@{{ account.username }}</p><br>
 
 <h2>Latest Solves</h2>
+<br>
+<table class="table table-striped">
+<thead class="thead-inverse">
+        <tr>
+            <td><b>Question</b>
+            </td>
+            <td><b>Date</b>
+            </td>
+            <td><b>Score</b>
+            </td>
+        </tr>
+</thead>
+<tbody>
 {% for solve in solves %}
-<li>Solved 
-    <a href="{{ solve.question.get_absolute_url }}">{{ solve.question.title }}</a> 
-    at {{ solve.attempt_date }}</li>
+<tr>
+<td><a href="{{ solve.question.get_absolute_url }}">{{ solve.question.title }}</a> </td>
+<td>
+{{ solve.attempt_date }}
+</td>
+<td>
+{{solve.question.difficulty}}
+</td>
+</tr>
 {% endfor %}
+</tbody>
+</table>
 {% endblock %}
