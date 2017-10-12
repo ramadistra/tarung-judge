@@ -25,14 +25,15 @@ class Category(models.Model):
         return self.name
 
 class Question(models.Model):
-    EASY = 2
-    MEDIUM = 5
-    HARD = 10
+    EASY = 20
+    MEDIUM = 40
+    HARD = 70
     DIFFICULTY_CHOICES = (
         (EASY, 'Easy'),
         (MEDIUM, 'Medium'),
         (HARD, 'Hard')
     )
+    difficulty_dict = dict(DIFFICULTY_CHOICES)
 
     # Question Body
     title = models.CharField(max_length=64, unique=True, db_index=True)
@@ -70,6 +71,10 @@ class Question(models.Model):
         if self.total == 0:
             return "0"
         return "{0:.2f}".format(self.solves/self.total*100)
+
+    @property
+    def difficulty_str(self):
+        return self.difficulty_dict[self.difficulty]
 
     @property
     def is_published(self):
