@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import permalink
 from django.utils import timezone
+from django.utils.safestring import mark_safe 
 
 # TODO: Implement categories
 # TODO: Implement difficulty
@@ -46,7 +47,7 @@ class Question(models.Model):
 
     @property
     def parsed_template(self):
-        return self.template.replace("\r\n", "\\n")
+        return mark_safe(self.template.replace("\r\n", "\\n"))
 
     @property
     def cases(self):
