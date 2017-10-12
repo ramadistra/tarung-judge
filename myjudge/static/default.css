@@ -40,3 +40,24 @@ letter-spacing: .01em;
     border-color: #007bff;
     cursor: pointer;
 }
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+
+body {
+    min-height: 100%;
+}
+
+.content {
+    min-height: 75%;
+}
+
+footer {
+    border-top: 1px solid #eff2f5;
+    height: 50px;
+    background-color: white;
+    margin-bottom: 0px;
+    padding: 1.25em;
+    padding-bottom: 3em;
+}
