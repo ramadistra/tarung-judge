@@ -75,13 +75,21 @@ def profile(request, username):
     context = {'account':user, 'solves':latest_solves}
     return render(request, 'onlinejudge/profile.html', context)
 
-def user_score(user):
+
+def count_score(user):
     return sum(a.question.difficulty for a in user.attempt_set.filter(status=1, first_solve=True))
+
+
+def get_latest_solve(tup):
+    user = tup[0]
+    return user.attempt_set.filter(first_solve=True).latest('attempt_date').attempt_date
+
 
 def leaderboard(request):
     users = User.objects.all()
-    users_score = [(user, user_score(user)) for user in users]
-    leaderboard = sorted(users_score, key=lambda x: x[1], reverse=True)
+    users_score = [(user, count_score(user)) for user in users]
+    users_latest_solve = sorted(users_score, key=get_latest_solve)
+    leaderboard = sorted(users_latest_solve, key=lambda x: x[1], reverse=True)
     context = {
         'leaderboard': leaderboard
     }
