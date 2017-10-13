@@ -31,9 +31,9 @@ class Question(models.Model):
     MEDIUM = 40
     HARD = 70
     DIFFICULTY_CHOICES = (
-        (EASY, 'Easy'),
-        (MEDIUM, 'Medium'),
-        (HARD, 'Hard')
+        (EASY, 'Mudah'),
+        (MEDIUM, 'Sedang'),
+        (HARD, 'Sulit')
     )
     difficulty_dict = dict(DIFFICULTY_CHOICES)
 
