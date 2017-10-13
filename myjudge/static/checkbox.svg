@@ -1,0 +1,8 @@
+<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 92">
+<style>
+    .checkbox { 
+        fill: #4acc81;
+    }
+</style>
+<path class="checkbox" d="M48,2A46,46,0,1,0,94,48,46,46,0,0,0,48,2ZM45,74.25L20.63,54.58l7-11.09,15.65,12L65.87,21.26,76.29,31Z" transform="translate(-2 -2)"/>
+</svg>

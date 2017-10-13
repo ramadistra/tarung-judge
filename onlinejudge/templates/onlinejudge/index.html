@@ -1,14 +1,33 @@
 {% extends "onlinejudge/base.html" %}
+{% load staticfiles %}
+{% load app_filters %}
 {% block title %}Home{% endblock %}
 {% block body %}
 
+<style>
+        .category {
+            margin-top: 0.5em;
+            list-style-type: none;
+            padding: 0;
+          }
+        .checkbox {
+            margin-right: 3px; 
+            margin-top: -1px;
+        }
+</style>
 <h2>Questions</h2>
 {% for category in categories %}
 <div style="margin:1.5em 0;">
 <h4>{{category.name}}</h4>
+    <ul class="category">
     {% for question in category.latest_questions %}
-    <li style="margin-left:0.25em"><a href="{{ question.get_absolute_url }}">{{ question.title }}</a> (Solves: {{ question.solves }})</li>
+    {% if question|is_solved:user %}
+    <li class="questions"><img class="checkbox" src="{% static 'checkbox.svg' %}" width="20" 
+        height="20"> 
+    {% endif %}
+    <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> (Solves: {{ question.solves }})</li>
     {% endfor %}
+    </ul>
 </div>
 {% endfor %}
 
