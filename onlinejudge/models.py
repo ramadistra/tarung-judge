@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import permalink
@@ -19,7 +21,7 @@ class Category(models.Model):
     def latest_questions(self):
         return self.question_set \
                    .filter(published_date__lte=timezone.now()) \
-                   .order_by('-published_date')
+                   .order_by('difficulty', 'published_date')
 
     def __str__(self):
         return self.name
