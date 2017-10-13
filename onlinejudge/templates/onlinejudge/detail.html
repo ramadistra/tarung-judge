@@ -9,8 +9,9 @@
 
 {% block body %}
 <h2>{{ question.title }}</h2>
-<div>
-[{{question.difficulty}}] {{ question.description | safe }}
+Kesulitan: {{ question.difficulty_str }} ({{ question.difficulty }} poin)<br><br>
+<div class="description">
+{{ question.description|safe }}
 </div><br>
 {% for case in question.sample_cases %}
 <div style="padding: 8px 0 12px 0;">
