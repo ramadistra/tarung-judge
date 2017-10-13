@@ -21,11 +21,18 @@
 <h4>{{category.name}}</h4>
     <ul class="category">
     {% for question in category.latest_questions %}
-    {% if question|is_solved:user %}
-    <li class="questions"><img class="checkbox" src="{% static 'checkbox.svg' %}" width="20" 
-        height="20"> 
+    <li class="questions">
+    <img class="checkbox" src=
+    {% if user.is_authenticated and question|is_solved:user %}
+    "{% static 'solved.svg' %}"
+    {% else %}
+    "{% static 'unsolved.svg' %}"
     {% endif %}
-    <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> (Solves: {{ question.solves }})</li>
+     width="20" height="20">
+    <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> (Solves: {{ question.solves }})
+    
+ 
+    </li>
     {% endfor %}
     </ul>
 </div>
