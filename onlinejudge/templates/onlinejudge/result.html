@@ -2,15 +2,19 @@
 {% block title %}Result{% endblock %}
 {% block body %}
 <br>
-{% if attempt.status == 1 or attempt.status == 5 %} Yay bener!
+{% if attempt.status == 1 or attempt.status == 5 %}
+<h5>Berhasil!</h5>
+Yay, jawaban kamu benar :D
 {% elif attempt.status == 0 %} 
-<b>Gak ada error tapi jawabannya salah :(</b>
-<br> Mungkin ada kasus yang belum di-handle.
-{% else %} <b>Wah ada error!</b><br>
+<h5>Kurang Tepat</h5>
+Mungkin ada kasus yang belum di-handle :(
+{% else %} <h5>Wah, ada error!</h5>
 Dicek lagi ya syntaxnya :)
 {% endif %}
-<br><br>
+<br><br><br>
 {% if attempt.status != 1 and attempt.status != 5 %}
-<a href="{{attempt.question.get_absolute_url}}">Coba Lagi</a>
+<a class="btn btn-bd-blue" href="{{attempt.question.get_absolute_url}}">Coba Lagi</a>
+{% else %}
+<a class="btn btn-bd-blue" href="/">Ke Soal Lain</a>
 {% endif %}
 {% endblock %}
