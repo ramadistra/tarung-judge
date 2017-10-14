@@ -1,13 +1,7 @@
-import re
-
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import permalink
 from django.utils import timezone
-
-# TODO: Implement categories
-# TODO: Implement difficulty
-# TODO: Implement leaderboard
 
 
 class Category(models.Model):
@@ -83,7 +77,7 @@ class Question(models.Model):
         return bool(self.attempt_set.filter(status=1, user=user))
 
     def __str__(self):
-        return "Title: {}\nSuccess Rate:{:}%".format(self.title, self.success_rate)
+        return "Title: {}\nSuccess Rate:{}%".format(self.title, self.success_rate)
 
     @permalink
     def get_absolute_url(self):

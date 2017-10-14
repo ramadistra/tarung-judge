@@ -6,7 +6,6 @@ from django.shortcuts import redirect, render, get_object_or_404
 from requests import ConnectionError
 
 from .models import Question, Attempt, User, Category
-from .forms import SignUpForm
 from .judger import judge
 
 
