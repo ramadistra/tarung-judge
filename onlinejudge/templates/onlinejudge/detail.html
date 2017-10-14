@@ -40,6 +40,6 @@ Kesulitan: {{ question.difficulty_str }} ({{ question.difficulty }} poin)<br><br
                 }   
             }
         });
-    myCodeMirror.setValue("{{question.parsed_template}}");
+    myCodeMirror.setValue("{{template|safe}}");
 </script>
 {% endblock %}

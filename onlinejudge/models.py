@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import permalink
 from django.utils import timezone
-from django.utils.safestring import mark_safe 
 
 # TODO: Implement categories
 # TODO: Implement difficulty
@@ -26,6 +25,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Question(models.Model):
     EASY = 20
     MEDIUM = 40
@@ -46,11 +46,7 @@ class Question(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     published_date = models.DateTimeField(default=timezone.now)
     difficulty = models.IntegerField(choices=DIFFICULTY_CHOICES)
-    template = models.TextField(default="")
-
-    @property
-    def parsed_template(self):
-        return mark_safe(self.template.replace("\r\n", "\\n"))
+    template = models.TextField()
 
     @property
     def cases(self):

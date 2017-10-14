@@ -24,14 +24,32 @@ def activity(request):
 
 
 def detail(request, slug):
-    if request.user.is_staff:
+    user = request.user
+
+    # Admins can access and test unpublished questions.
+    if user.is_staff:
         question = get_object_or_404(Question, slug=slug)
     else:
         question = get_object_or_404(Question, slug=slug,
                                      published_date__lte=timezone.now())
-    context = {'question':question}
+    
+    # Display the users latest attempt if user has already 
+    # attempted the question. If not, display the template.
+    template = question.template
+    if user.is_authenticated: 
+        attempts = Attempt.objects \
+                  .filter(user=user, question=question) \
+                  .order_by("-id")
+        if attempts:
+            template = attempts[0].source
+
+    context = {'question':question, 'template':escape(template)}
     return render(request, 'onlinejudge/detail.html', context)
 
+
+def escape(s):
+    """Escapes string for JavaScript."""
+    return s.replace("\r\n", "\\n").replace("\"", "\\\"")
 
 
 @login_required
