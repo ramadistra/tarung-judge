@@ -24,7 +24,6 @@ def activity(request):
 
 def detail(request, slug):
     user = request.user
-
     # Admins can access and test unpublished questions.
     if user.is_staff:
         question = get_object_or_404(Question, slug=slug)
@@ -41,8 +40,10 @@ def detail(request, slug):
                   .order_by("-id")
         if attempts:
             template = attempts[0].source
-
-    context = {'question':question, 'template':escape(template)}
+    context = {
+        'question':question, 
+        'template':escape(template),
+        }
     return render(request, 'onlinejudge/detail.html', context)
 
 
@@ -93,25 +94,26 @@ def profile(request, username):
     return render(request, 'onlinejudge/profile.html', context)
 
 
-def count_score(user):
-    return sum(a.question.difficulty for a in user.attempt_set.filter(status=1, first_solve=True))
-
-
-def get_latest_solve(tup):
-    user = tup[0]
-    return user.attempt_set.filter(first_solve=True).latest('attempt_date').attempt_date
-
-
 def leaderboard(request):
     # Only select users who have solved a question.
     users = User.objects.filter(attempt__first_solve=True).distinct()
-    users_score = [(user, count_score(user)) for user in users]
-    users_latest_solve = sorted(users_score, key=get_latest_solve)
-    leaderboard = sorted(users_latest_solve, key=lambda x: x[1], reverse=True)
-    context = {
-        'leaderboard': leaderboard
-    }
+    users_stat = [(user, get_stats(user)) for user in users]
+    users_latest_solve = sorted(users_stat, key=lambda x: x[1][1])
+    leaderboard = sorted(
+        [(user, stat[0]) for user, stat in users_latest_solve], 
+        key=lambda x: x[1], 
+        reverse=True,
+        )
+    context = {'leaderboard': leaderboard}
     return render(request, 'onlinejudge/leaderboard.html', context)
+
+
+def get_stats(user):
+    """Get the user's score and latest solve date"""
+    first_solves = user.attempt_set.filter(first_solve=True)
+    score = sum(solve.question.difficulty for solve in first_solves)
+    latest_solve_date = first_solves.latest('attempt_date').attempt_date
+    return score, latest_solve_date
 
 
 def judger_offline(request, slug):
