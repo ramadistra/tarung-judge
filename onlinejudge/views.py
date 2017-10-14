@@ -4,6 +4,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
 from requests import ConnectionError
+from json import JSONDecodeError
+from django.utils.datastructures import MultiValueDictKeyError
 
 from .models import Question, Attempt, User, Category
 from .judger import judge
@@ -56,11 +58,14 @@ def escape(s):
 def submit(request, slug):
     user = request.user
     question = get_object_or_404(Question, slug=slug)
-    source = request.POST["source"]
+    try:
+        source = request.POST["source"]
+    except MultiValueDictKeyError:
+        source = ""
     attempt = Attempt(user=user, question=question)
     try:
         result = judge(source, question)
-    except ConnectionError:
+    except (ConnectionError, JSONDecodeError):
         return redirect('judger-offline', slug=slug)
     else:
         status = result['verdict']
