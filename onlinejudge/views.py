@@ -49,7 +49,7 @@ def detail(request, slug):
 
 def escape(s):
     """Escapes string for JavaScript."""
-    return s.replace("\r\n", "\\n").replace("\"", "\\\"")
+    return s.replace("\\","\\\\").replace("\r\n", "\\n").replace("\"", "\\\"")
 
 
 @login_required
