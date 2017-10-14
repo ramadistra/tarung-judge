@@ -1,6 +1,11 @@
-# django-djudge
-Online judge abal-abal  
-  
-kalau nemu bug jangan diem-diem aja ya :(
+# tarung-judge
+Online Judge dibuat dengan django dan [judger](https://github.com/ramadistra/judger).
+
+### Fitur:
+- Scoreboard
+- Login dengan SSO UI.
+- Gak bisa dihack Kusuman.
+
+Silahkan kirim pull request kalau mau nambahin sesuatu :)
 
 [Live Version](https://my-judge.herokuapp.com)
