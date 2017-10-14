@@ -1,9 +1,16 @@
 {% extends "onlinejudge/base.html" %}
 {% block title %}Result{% endblock %}
 {% block body %}
-Verdict: 
-{% if attempt.status == 1 or attempt.status == 5 %} accepted :D 
-{% elif attempt.status == 0 %} wrong :( 
-{% else %} error<br><br>diperiksa lagi ya kodingannya :)
+<br>
+{% if attempt.status == 1 or attempt.status == 5 %} Yay bener!
+{% elif attempt.status == 0 %} 
+<b>Gak ada error tapi jawabannya salah :(</b>
+<br> Mungkin ada kasus yang belum di-handle.
+{% else %} <b>Wah ada error!</b><br>
+Dicek lagi ya syntaxnya :)
+{% endif %}
+<br><br>
+{% if attempt.status != 1 and attempt.status != 5 %}
+<a href="{{attempt.question.get_absolute_url}}">Coba Lagi</a>
 {% endif %}
 {% endblock %}
