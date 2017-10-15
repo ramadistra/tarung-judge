@@ -59,11 +59,13 @@ def escape(s):
 def submit(request, slug):
     user = request.user
     question = get_object_or_404(Question, slug=slug)
+
     try:
         source = request.POST["source"]
     except MultiValueDictKeyError:
         source = ""
     attempt = Attempt(user=user, question=question)
+
     try:
         result = judge(source, question)
     except (ConnectionError, JSONDecodeError):
@@ -83,7 +85,6 @@ def submit(request, slug):
 
 @login_required
 def result(request, slug, attempt_id):
-    # TODO: Handle case where user has solved question.
     question = get_object_or_404(Question, slug=slug)
     attempt = get_object_or_404(Attempt, id=attempt_id)
     if attempt.user == request.user:
@@ -104,7 +105,7 @@ def leaderboard(request):
     leaderboard = {}
 
     # Only select users who have solved a question.
-    solves = User.objects.filter(attempt__first_solve=True).distinct().values(
+    solves = User.objects.filter(attempt__first_solve=True).values(
         "username", 
         "attempt__attempt_date", 
         "attempt__question__difficulty",
