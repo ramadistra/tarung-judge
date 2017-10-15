@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
+
 from requests import ConnectionError
 from json import JSONDecodeError
 from django.utils.datastructures import MultiValueDictKeyError
@@ -100,25 +101,37 @@ def profile(request, username):
 
 
 def leaderboard(request):
+    leaderboard = {}
+
     # Only select users who have solved a question.
-    users = User.objects.filter(attempt__first_solve=True).distinct()
-    users_stat = [(user, get_stats(user)) for user in users]
-    users_latest_solve = sorted(users_stat, key=lambda x: x[1][1])
-    leaderboard = sorted(
-        [(user, stat[0]) for user, stat in users_latest_solve], 
-        key=lambda x: x[1], 
-        reverse=True,
+    solves = User.objects.filter(attempt__first_solve=True).distinct().values(
+        "username", 
+        "attempt__attempt_date", 
+        "attempt__question__difficulty",
         )
-    context = {'leaderboard': leaderboard}
+
+    # Calculate user's scores and latest solve date
+    for solve in solves:
+        username = solve['username']
+        points = solve['attempt__question__difficulty']
+        attempt = solve['attempt__attempt_date']
+        if username in leaderboard.keys():
+            user_stat = leaderboard[username]
+            user_stat[0] += points
+            if attempt > user_stat[1]:
+                user_stat[1] = attempt
+        else:
+            leaderboard[username] = [points, attempt]
+
+    # Leaderboard is sorted by score, then earlist last solve.
+    users_latest_solve = sorted(leaderboard.items(), key=lambda x: x[1][1])
+    sorted_leaderboard = sorted(
+        [(username, stat[0]) for username, stat in users_latest_solve], 
+        key=lambda x: x[1], reverse=True,
+        )
+
+    context = {'leaderboard': sorted_leaderboard}
     return render(request, 'onlinejudge/leaderboard.html', context)
-
-
-def get_stats(user):
-    """Get the user's score and latest solve date"""
-    first_solves = user.attempt_set.filter(first_solve=True)
-    score = sum(solve.question.difficulty for solve in first_solves)
-    latest_solve_date = first_solves.latest('attempt_date').attempt_date
-    return score, latest_solve_date
 
 
 def judger_offline(request, slug):

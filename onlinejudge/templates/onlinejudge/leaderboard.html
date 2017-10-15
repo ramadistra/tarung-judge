@@ -16,11 +16,11 @@
         </tr>
 </thead>
 <tbody>
-{% for user, score in leaderboard %}
+{% for username, score in leaderboard %}
 <tr>
 <td>{{forloop.counter}}</td>
 <td>
-<a href="{% url 'profile' user.username %}">{{user.username}}</a>
+<a href="{% url 'profile' username %}">{{username}}</a>
 </td>
 <td>
 {{score}}
