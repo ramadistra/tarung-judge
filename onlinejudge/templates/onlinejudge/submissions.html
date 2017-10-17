@@ -1,0 +1,37 @@
+<style>
+    .table thead td {
+        border-top-color: #fff !important;
+        padding-top: 0em;
+    }
+</style>
+{% if submissions %}
+<table class="table table-striped">
+<thead class="thead-inverse">
+        <tr>
+            <td>Verdict
+            </td>
+            <td>Attempt Date
+            </td>
+            <td>Source
+            </td>
+        </tr>
+</thead>
+<tbody>
+{% for submission in submissions %}
+<tr>
+<td>
+{{submission.status_str}}
+</td>
+<td>{{submission.attempt_date}}</td>
+<td>
+<a href="#">{% include "onlinejudge/source.html" %}</a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<div style="padding: 0 0.75rem;">
+Kamu belum submit apa-apa :(
+</div>
+{% endif %}

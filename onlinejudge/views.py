@@ -44,8 +44,9 @@ def detail(request, slug):
         if attempts:
             template = attempts[0].source
     context = {
-        'question':question, 
-        'template':escape(template),
+        'question': question, 
+        'submissions': question.attempt_set.filter(user=user).order_by("-id"),
+        'template': escape(template),
         }
     return render(request, 'onlinejudge/detail.html', context)
 

@@ -1,0 +1,39 @@
+<div class="description">
+        {{ question.description|safe }}
+        </div><br>
+        {% for case in question.sample_cases %}
+        <div style="padding: 8px 0 12px 0;">
+        Input #{{ forloop.counter }}
+        <pre class="sample">{{ case.stdin }}</pre>
+        Output #{{ forloop.counter }}
+        <pre class="sample">{{ case.stdout }}</pre>
+        </div>
+        {% endfor %}<br>
+        Answer:
+        <form action={% url 'submit' question.slug %} method=post style="margin-top: 0.5em;">
+            {% csrf_token %}
+            <textarea id="editor" name="source" rows="18" cols="64"></textarea>
+            <br>
+            <div class="text-right">
+                <input type="submit" class="btn btn-bd-blue" onclickvalue="Submit">
+            </div>
+        </form>
+        <style>
+            .CodeMirror pre {
+                font-family: 'Inconsolata', monospace;
+                font-size: 0.9em;
+                line-height: 1.5;
+            }
+        </style>
+        <script>
+            var myCodeMirror = CodeMirror.fromTextArea(
+                document.getElementById("editor"), {
+                    indentUnit: 4,
+                    extraKeys: {
+                        "Tab": function(cm){
+                            cm.replaceSelection("    " , "end");
+                        }   
+                    }
+                });
+            myCodeMirror.setValue("{{template|safe}}");
+        </script>
