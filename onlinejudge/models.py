@@ -97,7 +97,7 @@ class Attempt(models.Model):
     RUNTIME_ERROR = 2
     SERVER_ERROR = 3
     TIMED_OUT = 4
-    TESTING = -1
+    TESTING = 5
     STATUS_CHOICES = (
         (WRONG_ANSWER, 'Wrong Answer'),
         (ACCEPTED, 'Accepted'),
@@ -106,6 +106,7 @@ class Attempt(models.Model):
         (TIMED_OUT, 'Timed Out'),
         (TESTING, 'Accepted (Testing)'),
     )
+    _status_dict = dict(STATUS_CHOICES)
 
     # Attempt Information
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -116,6 +117,10 @@ class Attempt(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES)
     source = models.TextField(default="")
     first_solve = models.BooleanField(default=False)
+
+    @property
+    def status_str(self):
+        return self._status_dict[self.status]
 
     @classmethod
     def latest_solves(cls, user=None):
