@@ -4,9 +4,9 @@ li {
 
 .content {
 margin: 0 auto;
-max-width: 41.5em;
+max-width: 40em;
 margin-top: 2.5em;
-padding: 0.5% 2em 4em 1.5em;
+padding: 0.5% 1em 4em 1em;
 font-weight: 400;
 line-height: 1.5;
 letter-spacing: .01em;
@@ -28,7 +28,7 @@ min-height: 75%;
 }
 
 .nav-tabs {
-    padding: 0.5em 0.5em 0 0.5em;
+    padding: 0.5em 0.5em 0 0.75em;
     margin-bottom: 2em !important;
 }
 
