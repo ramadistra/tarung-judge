@@ -34,18 +34,25 @@ def detail(request, slug):
         question = get_object_or_404(Question, slug=slug,
                                      published_date__lte=timezone.now())
     
-    # Display the users latest attempt if user has already 
-    # attempted the question. If not, display the template.
     template = question.template
-    if user.is_authenticated: 
+    if user.is_authenticated:
+        # Display the users latest attempt if user has already 
+        # attempted the question. If not, display the template.
         attempts = Attempt.objects \
                   .filter(user=user, question=question) \
                   .order_by("-id")
         if attempts:
             template = attempts[0].source
+        
+        # Get the user's submissions
+        submissions = question.attempt_set.filter(user=user).order_by("-id")
+    else:
+        # Empty submissions for unauthenticated users
+        submissions = None
+
     context = {
         'question': question, 
-        'submissions': question.attempt_set.filter(user=user).order_by("-id"),
+        'submissions': submissions,
         'template': escape(template),
         }
     return render(request, 'onlinejudge/detail.html', context)
