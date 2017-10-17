@@ -4,10 +4,10 @@ li {
 
 .content {
 margin: 0 auto;
-max-width: 48em;
+max-width: 40em;
 margin-top: 2.5em;
 padding: 0.5% 2em 4em 1.5em;
-font-weight: 200;
+font-weight: 400;
 line-height: 1.5;
 letter-spacing: .01em;
 }
@@ -15,16 +15,22 @@ letter-spacing: .01em;
 .navbar-brand{
     font-weight: medium;
     color:  #007bff !important;
+    margin-top: -1px;
 }
 
 .navbar{
-    padding: 0.125em 1em;
+    padding: 0 1em;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: #172f44;
 }
 
 .sample{
     background:#eff2f5; 
-    padding:8px; 
+    padding: 8px; 
     margin: 8px 0 12px 0;
+    font-family: 'Inconsolata', monospace;
 }
 
 .btn-bd-blue {
@@ -45,8 +51,29 @@ letter-spacing: .01em;
     background-color: #f8f9fa;
 }
 
+.table thead {
+    font-weight: 600;
+}
+
+.table {
+    font-size: 1.05rem;
+}
+
 body {
     min-height: 100%;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #172f44;
+    font-size: 1.05rem;
+}
+
+.description{
+    font-size: 0.98rem;
+    font-family: 'Georgia', serif;
+}
+
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-weight: 600 !important;
 }
 
 .content {

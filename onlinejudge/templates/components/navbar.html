@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Tarung Judge</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                    <a class="nav-link active" href="/">Latihan</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link active" href="/activity">Activity</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/scoreboard">Scoreboard</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}}<span class="caret"></span></a>
+                  <ul class="dropdown-menu" style="padding:0 0 0 1em">
+                    <li><a href="/profile/{{user.username}}">My Profile</a></li>
+                    {% if user.is_staff %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %}
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/logout">Log Out</a></li>
+                  </ul>
+                </li>
+                {% else %}
+                <a class="btn btn-bd-blue navbar-btn" href="/login">Log In</a>
+                {% endif %}
+              </ul>
+        </div>
+      </nav>
