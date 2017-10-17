@@ -3,9 +3,9 @@ Online Judge dibuat dengan django dan [judger](https://github.com/ramadistra/jud
 
 ### Fitur:
 - Scoreboard
-- Login dengan SSO UI.
-- Gak bisa dihack Kusuman.
+- Login dengan SSO(*Single Sign-On*) Universitas Indonesia.
+- Gak bisa di*hack* Steven Kusuman.
 
-Silahkan kirim pull request kalau mau nambahin sesuatu :)
+Silahkan kirim pull request kalau mau nambahin sesuatu.
 
 [Live Version](https://my-judge.herokuapp.com)
