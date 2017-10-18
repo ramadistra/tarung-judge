@@ -113,9 +113,8 @@ footer {
 }
 
 .modal .modal-dialog {
-    max-width: 40rem;
+    max-width: 38rem;
     margin-top: 6em;
-    padding-right: 0.5em;
 }
 
 .source {

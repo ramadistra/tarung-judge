@@ -11,8 +11,8 @@
             padding: 0;
           }
         .checkbox {
-            margin-right: 3px; 
-            margin-bottom: -5px;
+            margin-right: 2px; 
+            margin-bottom: -4.5px;
         }
         .solved {
             fill: #4acc81
@@ -28,7 +28,7 @@
     <ul class="category">
     {% for question in category.latest_questions %}
     <li class="questions">
-    <svg class="checkbox" width=20 height=20 data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 92">
+    <svg class="checkbox" width=18 height=18 data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 92">
     <path class="
     {% if user.is_authenticated and question|is_solved:user %}
     solved
