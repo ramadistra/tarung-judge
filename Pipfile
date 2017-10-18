@@ -10,6 +10,7 @@ psycopg2 = "*"
 whitenoise = "*"
 django-cas-client = "*"
 requests = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.6"
