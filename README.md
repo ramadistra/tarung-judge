@@ -1,4 +1,6 @@
 # tarung-judge
+[![Build Status](https://travis-ci.org/ramadistra/tarung-judge.svg?branch=master)](https://travis-ci.org/ramadistra/tarung-judge)  
+
 Online Judge dibuat dengan django dan [judger](https://github.com/ramadistra/judger).
 
 ### Fitur:
