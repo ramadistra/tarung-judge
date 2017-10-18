@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG") == "true"
 
-TEST_RUNNER = 'myjudge.heroku_test_runner.HerokuDiscoverRunner'
+# TEST_RUNNER = 'myjudge.heroku_test_runner.HerokuDiscoverRunner'
 
 
 # Application definition
