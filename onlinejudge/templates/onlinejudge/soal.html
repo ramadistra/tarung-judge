@@ -1,7 +1,7 @@
 <div style="margin-bottom: 0.5em;">
 <div class="description">
-    {{ question.description|safe }}
-    </div><br>
+    {{ question.description_markup|safe }}
+    </div>
     {% for case in question.sample_cases %}
     <div style="padding: 8px 0 12px 0;">
     Input #{{ forloop.counter }}
@@ -15,8 +15,7 @@ Answer:
 <form action={% url 'submit' question.slug %} method=post style="margin-top: 0.5em;">
     {% csrf_token %}
     <textarea id="editor" name="source" rows="18" cols="64"></textarea>
-    <br>
-    <div class="text-right">
+    <div style="margin-top: 0.75em;" class="text-right">
         <input type="submit" class="btn btn-bd-blue" onclickvalue="Submit">
     </div>
 </form>
