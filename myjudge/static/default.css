@@ -4,7 +4,7 @@ li {
 
 .content {
 margin: 0 auto;
-max-width: 40em;
+max-width: 38.75rem;
 margin-top: 2.5em;
 padding: 0.5% 1em 4em 1em;
 font-weight: 400;
@@ -28,8 +28,8 @@ min-height: 75%;
 }
 
 .nav-tabs {
-    margin-bottom: 1.75em;
-    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
 }
 
 .nav-tabs .tab-content {
@@ -59,10 +59,12 @@ min-height: 75%;
 
 .sample{
     background:#eff2f5; 
-    padding: 8px; 
-    margin: 8px 0 12px 0;
+    padding: 0.5em; 
+    margin: 0.5em 0;
     font-family: 'Inconsolata', monospace;
 }
+
+.case {padding-bottom: 1em;}
 
 .btn-bd-blue {
     font-weight: 500;
@@ -96,7 +98,7 @@ body {
 .description{
     line-height: 1.58;
     font-family: 'Georgia', serif;
-    margin-bottom: 1.25em;
+    margin-bottom: 1em;
 }
 
 

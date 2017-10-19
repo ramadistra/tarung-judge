@@ -3,7 +3,7 @@
     {{ question.description_markup|safe }}
     </div>
     {% for case in question.sample_cases %}
-    <div style="padding: 8px 0 12px 0;">
+    <div class="case">
     Input #{{ forloop.counter }}
     <pre class="sample">{{ case.stdin }}</pre>
     Output #{{ forloop.counter }}
