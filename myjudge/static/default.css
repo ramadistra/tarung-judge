@@ -64,7 +64,7 @@ min-height: 75%;
     font-family: 'Inconsolata', monospace;
 }
 
-.case {padding-bottom: 1em;}
+.case {padding-bottom: 0.5em;}
 
 .btn-bd-blue {
     font-weight: 500;
@@ -98,7 +98,7 @@ body {
 .description{
     line-height: 1.58;
     font-family: 'Georgia', serif;
-    margin-bottom: 1em;
+    margin-bottom: 1.25em;
 }
 
 
