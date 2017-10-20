@@ -43,12 +43,6 @@ class Question(models.Model):
     template = models.TextField()
 
     @property
-    def description_markup(self):
-        return "<p>{}</p>".format(
-            self.description.replace("\r\n"*2, "</p><p>").replace("\r\n", "<br>")
-        )
-
-    @property
     def cases(self):
         return self.case_set.filter(sample_case=False).all()
 

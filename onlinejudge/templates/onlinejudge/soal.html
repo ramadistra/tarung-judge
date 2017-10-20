@@ -1,7 +1,5 @@
 <div style="margin-bottom: 0.75em;">
-<div class="description">
-    {{ question.description_markup|safe }}
-    </div>
+    <div class="description" id="description">{{ question.description|safe }}</div>
     {% for case in question.sample_cases %}
     <div class="case">
     Input #{{ forloop.counter }}
@@ -27,6 +25,9 @@ Answer:
     }
 </style>
 <script>
+    desc = document.getElementById("description");
+    desc.innerHTML = markdown.toHTML(desc.textContent);
+    
     var myCodeMirror = CodeMirror.fromTextArea(
         document.getElementById("editor"), {
             indentUnit: 4,
