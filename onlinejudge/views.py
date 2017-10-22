@@ -53,14 +53,9 @@ def detail(request, slug):
     context = {
         'question': question, 
         'submissions': submissions,
-        'template': escape(template),
+        'template': template,
         }
     return render(request, 'onlinejudge/detail.html', context)
-
-
-def escape(s):
-    """Escapes string for JavaScript."""
-    return s.replace("\\","\\\\").replace("\r\n", "\\n").replace("\"", "\\\"")
 
 
 @login_required
