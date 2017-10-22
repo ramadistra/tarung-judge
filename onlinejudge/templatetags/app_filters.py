@@ -10,7 +10,12 @@ register = template.Library()
 def is_solved(question, user):
     
     return question.is_solved_by(user) 
-    
+
+@register.filter(name='completed')
+def completed(contest, user):
+    questions = contest.question_set.count()
+    solves = contest.question_set.filter(attempt__first_solve=True, attempt__user=user).count()
+    return questions == solves
 
 @register.filter(name='progress')
 def progress(contest, user):
