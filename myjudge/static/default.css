@@ -150,3 +150,7 @@ footer {
 .dropdown-toggle:hover{
     color: #fff;
 }
+
+.nav-item {
+    margin: 0.5em 0;
+}
