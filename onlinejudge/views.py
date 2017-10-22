@@ -13,14 +13,14 @@ from .judger import judge
 
 
 def home(request):
-    contests = Contest.objects.all()
+    contests = Contest.objects.order_by("-id")
     context = {'contests': contests}
     return render(request, 'onlinejudge/index.html', context)
+
 
 def contest(request, slug):
     contest = get_object_or_404(Contest, slug=slug)
     categories = Category.objects.filter(question__contest=contest).distinct()
-    questions = Question.objects.filter(contest=contest).count()
     context = {
         'contest': contest,
         'categories': categories,
