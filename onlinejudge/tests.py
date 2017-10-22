@@ -1,9 +1,11 @@
 from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import AnonymousUser, User
 
-from .models import Attempt, Question
+from .models import Attempt, Question, Contest, Category
+
 from . import views
 from . import judger
+from .templatetags import app_filters
 
 
 class JudgerTestCase(TestCase):
@@ -118,3 +120,11 @@ class QuestionViewsTest(TestCase):
         request.user = AnonymousUser()
         response = views.submit(request, self.question.slug)
         self.assertEqual(response.url, "/login?next=/question/%s/submit" % self.question.slug)
+
+class LatestQuestionsTest(TestCase):
+    def setUp(self):
+        self.contest = Contest(name="Test", slug="test", description="con test")
+        self.category = Category(name="Tests")
+
+    def test_latest_questions(self):
+        latest_questions = app_filters.latest_questions(self.category, self.contest)

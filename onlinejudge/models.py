@@ -9,16 +9,22 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"
-    
-    @property
-    def latest_questions(self):
-        return self.question_set \
-                   .filter(published_date__lte=timezone.now()) \
-                   .order_by('difficulty', 'published_date')
 
     def __str__(self):
         return self.name
 
+
+class Contest(models.Model):
+    name = models.CharField(max_length=64, unique=True, db_index=True)
+    slug = models.SlugField(max_length=64, unique=True, db_index=True)
+    description = models.TextField()
+
+    @permalink
+    def get_absolute_url(self):
+        return ('contest', None, {'slug': self.slug})
+
+    def __str__(self):
+        return self.name
 
 class Question(models.Model):
     EASY = 20
@@ -37,7 +43,8 @@ class Question(models.Model):
 
     # Question Details
     slug = models.SlugField(max_length=64, unique=True, db_index=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    contest = models.ForeignKey(Contest, on_delete=models.CASCADE, null=True)
     published_date = models.DateTimeField(default=timezone.now)
     difficulty = models.IntegerField(choices=DIFFICULTY_CHOICES)
     template = models.TextField()
