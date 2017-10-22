@@ -9,16 +9,16 @@
 
 {% block body %}
 <h2>{{ question.title }}</h2>
-<l style="color:#919ca7;">Kesulitan: {{ question.difficulty_str }} ({{ question.difficulty }} poin)</l><br><br>
+<l style="color:#919ca7;">Kesulitan: {{ question.difficulty_str }} ({{ question.difficulty }} poin)</l><br>
 <nav class="nav nav-tabs" id="myTab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-expanded="true">Soal</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile">Submissions</a>
+        <a class="nav-item nav-link active" id="nav-soal-tab" data-toggle="tab" href="#soal" role="tab" aria-controls="nav-home" aria-expanded="true">Soal</a>
+        <a class="nav-item nav-link" id="nav-submissions-tab" data-toggle="tab" href="#submissions" role="tab" aria-controls="nav-profile">Submissions</a>
       </nav>
       <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="tab-pane show active" id="soal" role="tabpanel" aria-labelledby="nav-soal-tab">
             {% include "onlinejudge/soal.html" %}
         </div>
-        <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div class="tab-pane" id="submissions" role="tabpanel" aria-labelledby="nav-submissions-tab">
             {% include "onlinejudge/submissions.html" %}
         </div>
       </div>     
