@@ -21,7 +21,7 @@ min-height: 75%;
 
 .navbar-brand{
     font-weight: medium;
-    color:  #007bff !important;
+    color:  #fff !important;
     margin-top: -1px;
 }
 
@@ -30,7 +30,7 @@ min-height: 75%;
 }
 
 .navbar-light .navbar-nav .nav-link.active {
-    color: #172f44;
+    color: #ffffffbb;
 }
 
 .nav-tabs {
@@ -125,4 +125,28 @@ footer {
     padding: 12px 16px;
     margin: 0px 0 12px 0;
     font-family: 'Inconsolata', monospace;
+}
+
+.bg-blue {
+    background-color: #007bff;
+}
+
+.navbar-btn{
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.24);
+    transition: all .2s ease-in-out;
+}
+
+.navbar-btn:hover{
+    transform: scale(1.08);
+    color: #007bff;
+    border-color: #007bff;
+    background-color: white;
+}
+
+.dropdown-toggle {
+    color: #fff;
+}
+
+.dropdown-toggle:hover{
+    color: #fff;
 }
