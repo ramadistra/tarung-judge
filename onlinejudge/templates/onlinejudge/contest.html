@@ -34,7 +34,7 @@
 <div class="category-body">
 <h4 class="category-title">{{category.name}}</h4>
     <ul class="category-items">
-    {% for question in category.latest_questions %}
+    {% for question in category|latest_questions:contest %}
     <li class="questions">
     <svg class="checkbox" width=18 height=18 data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 92">
     <path class="

@@ -9,12 +9,6 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"
-    
-    @property
-    def latest_questions(self):
-        return self.question_set \
-                   .filter(published_date__lte=timezone.now()) \
-                   .order_by('difficulty', 'published_date')
 
     def __str__(self):
         return self.name

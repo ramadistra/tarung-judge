@@ -1,6 +1,7 @@
 import math
 
 from django import template
+from django.utils import timezone
 
 
 register = template.Library()
@@ -10,6 +11,14 @@ register = template.Library()
 def is_solved(question, user):
     
     return question.is_solved_by(user) 
+
+
+@register.filter(name='latest_questions')
+def latest_questions(category, contest):
+    return category.question_set \
+           .filter(contest=contest, published_date__lte=timezone.now()) \
+           .order_by('difficulty', 'published_date')
+
 
 @register.filter(name='completed')
 def completed(contest, user):
