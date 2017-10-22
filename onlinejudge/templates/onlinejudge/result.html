@@ -15,6 +15,6 @@ Dicek lagi ya syntaxnya :)
 {% if attempt.status != 1 and attempt.status != 5 %}
 <a class="btn btn-bd-blue" href="{{attempt.question.get_absolute_url}}">Coba Lagi</a>
 {% else %}
-<a class="btn btn-bd-blue" href="/">Ke Soal Lain</a>
+<a class="btn btn-bd-blue" href="{{attempt.question.contest.get_absolute_url}}">Ke Soal Lain</a>
 {% endif %}
 {% endblock %}

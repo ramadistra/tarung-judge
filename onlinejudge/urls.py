@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^activity$', views.activity, name='activity'),
     url(r'^scoreboard$', views.leaderboard, name='leaderboard'),
+    url(r'^latihan/(?P<slug>[^\.]+)/$', views.contest, name='contest'),
     url(r'^question/(?P<slug>[^\.]+)/$', views.detail, name='detail'),
     url(r'^question/(?P<slug>[^\.]+)/submit$', views.submit, name='submit'),
     url(r'^question/(?P<slug>[^\.]+)/judger-offline$', views.judger_offline, name='judger-offline'),

@@ -8,14 +8,24 @@ from requests import ConnectionError
 from json import JSONDecodeError
 from django.utils.datastructures import MultiValueDictKeyError
 
-from .models import Question, Attempt, User, Category
+from .models import Question, Attempt, User, Category, Contest
 from .judger import judge
 
 
 def home(request):
-    categories = Category.objects.all()
-    context = {'categories': categories}
+    contests = Contest.objects.all()
+    context = {'contests': contests}
     return render(request, 'onlinejudge/index.html', context)
+
+def contest(request, slug):
+    contest = get_object_or_404(Contest, slug=slug)
+    categories = Category.objects.filter(question__contest=contest)
+    questions = Question.objects.filter(contest=contest).count()
+    context = {
+        'contest': contest,
+        'categories': categories,
+        }
+    return render(request, 'onlinejudge/contest.html', context)
 
 
 def activity(request):

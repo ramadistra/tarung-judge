@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Question, Case, Attempt, Category
+from .models import Question, Case, Attempt, Category, Contest
 
 class ChoiceInline(admin.StackedInline):
     model = Case
@@ -9,7 +9,7 @@ class ChoiceInline(admin.StackedInline):
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': ['title', 'category', 'difficulty', 'description', 'template']}),
+        (None,               {'fields': ['title', 'contest', 'category', 'difficulty', 'description', 'template']}),
         ('Details',          {'fields': ['slug', 'published_date']}),
     ]
     inlines = [ChoiceInline]
@@ -17,3 +17,4 @@ class QuestionAdmin(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Attempt)
 admin.site.register(Category)
+admin.site.register(Contest)
