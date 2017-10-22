@@ -19,7 +19,7 @@ def home(request):
 
 def contest(request, slug):
     contest = get_object_or_404(Contest, slug=slug)
-    categories = Category.objects.filter(question__contest=contest)
+    categories = Category.objects.filter(question__contest=contest).distinct()
     questions = Question.objects.filter(contest=contest).count()
     context = {
         'contest': contest,
