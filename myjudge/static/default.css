@@ -30,7 +30,7 @@ min-height: 76%;
 }
 
 .navbar-light .navbar-nav .nav-link.active {
-    color: #ffffffbb;
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .nav-tabs {
