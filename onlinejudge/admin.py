@@ -27,7 +27,16 @@ class QuestionAdmin(admin.ModelAdmin):
             return self.readonly_fields
         return self.readonly_fields  + ('author',)
 
+
+class AttemptAdmin(admin.ModelAdmin):
+    def get_readonly_fields(self, request, obj=None):
+        if request.user.is_superuser:
+            return self.readonly_fields
+        # Make all fields read-only.
+        return self.readonly_fields + tuple(f.name for f in obj._meta.get_fields())
+
+
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(Attempt)
+admin.site.register(Attempt, AttemptAdmin)
 admin.site.register(Category)
 admin.site.register(Contest)
