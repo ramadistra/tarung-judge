@@ -43,6 +43,7 @@ class Question(models.Model):
 
     # Question Details
     slug = models.SlugField(max_length=64, unique=True, db_index=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, choices=None)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     contest = models.ForeignKey(Contest, on_delete=models.CASCADE, null=True)
     published_date = models.DateTimeField(default=timezone.now)
