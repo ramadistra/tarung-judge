@@ -16,9 +16,12 @@
     .week {
         max-width: 24em;
         box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(0, 0, 0, .04);
     }
     .completed {
         color: #4acc81;
+        margin-top: 1px;
+        display: inline-block;    
     }
 </style>
 <h2>Latihan</h2>
@@ -27,7 +30,7 @@
 <div class="card week">
     <div class="card-body">
       <h4 class="card-title">{{contest.name}}</h4>
-      <p style="margin-top:-0.5em; margin-bottom:1.5em;"class="card-text">
+      <p style="margin-top:-0.5em; margin-bottom:1.25em;"class="card-text">
           {{contest.description}}
     </p>
     {% if user.is_authenticated and contest|completed:user  %}
@@ -42,8 +45,8 @@
         {% endfor %}
     </div>
     {% endif %}
-    <div style="display:inline-block;margin-top:-6px;" class="float-right">
-      <a href="{{contest.get_absolute_url}}" class="btn btn-bd-blue">Enter</a>
+    <div style="display:inline-block;margin-top:2px;" class="float-right">
+      <a href="{{contest.get_absolute_url}}">Enter</a>
       </div>
     </div>
 </div>
