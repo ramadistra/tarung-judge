@@ -121,6 +121,7 @@ class QuestionViewsTest(TestCase):
         response = views.submit(request, self.question.slug)
         self.assertEqual(response.url, "/login?next=/question/%s/submit" % self.question.slug)
 
+
 class LatestQuestionsTest(TestCase):
     def setUp(self):
         self.contest = Contest(name="Test", slug="test", description="con test")

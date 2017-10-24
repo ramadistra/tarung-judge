@@ -19,12 +19,13 @@ class Contest(models.Model):
     slug = models.SlugField(max_length=64, unique=True, db_index=True)
     description = models.TextField()
 
+    def __str__(self):
+        return self.name
+
     @permalink
     def get_absolute_url(self):
         return ('contest', None, {'slug': self.slug})
 
-    def __str__(self):
-        return self.name
 
 class Question(models.Model):
     EASY = 20

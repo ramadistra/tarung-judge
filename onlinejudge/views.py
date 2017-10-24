@@ -104,7 +104,7 @@ def result(request, slug, attempt_id):
     question = get_object_or_404(Question, slug=slug)
     attempt = get_object_or_404(Attempt, id=attempt_id)
     if attempt.user == request.user:
-        context = {"question":question, "attempt":attempt}
+        context = {"question": question, "attempt": attempt}
         return render(request, 'onlinejudge/result.html', context)
     return HttpResponse("Unauthorized Access :(", status=401)
 
@@ -113,7 +113,7 @@ def result(request, slug, attempt_id):
 def profile(request, username):
     user = User.objects.get(username=username)
     latest_solves = Attempt.latest_solves(user)
-    context = {'account':user, 'solves':latest_solves}
+    context = {'account': user, 'solves': latest_solves}
     return render(request, 'onlinejudge/profile.html', context)
 
 
@@ -140,7 +140,7 @@ def leaderboard(request):
         else:
             leaderboard[username] = [points, attempt]
 
-    # Leaderboard is sorted by score, then earlist last solve.
+    # Leaderboard is sorted by score, then earliest last solve.
     users_latest_solve = sorted(leaderboard.items(), key=lambda x: x[1][1])
     sorted_leaderboard = sorted(
         [(username, stat[0]) for username, stat in users_latest_solve], 
@@ -153,4 +153,3 @@ def leaderboard(request):
 
 def judger_offline(request, slug):
     return render(request, 'onlinejudge/judger-offline.html')
-   

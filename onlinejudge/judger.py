@@ -1,12 +1,12 @@
-import requests
 import json
+import requests
 
 from django.conf import settings
 
 from .models import Attempt
 
 
-status_dict = {
+STATUS = {
     'OK': Attempt.ACCEPTED,
     'Runtime Error': Attempt.RUNTIME_ERROR,
     'Server Error': Attempt.SERVER_ERROR,
@@ -27,20 +27,17 @@ def judge(source, question):
     -------
     result : dict
         A dictionary containing the test cases and verdict.
- 
+
     """
     cases = question.case_set.all()
-    n = len(cases)
     stdin = [case.stdin.replace("\r", "") + "\n" for case in cases]
     expected_output = [case.stdout.replace("\r", "") + "\n" for case in cases]
 
-    # TODO: Handle case where judger is not available
-    data = {'source':source, 'stdin':stdin, 'timeout':2000}
+    data = {'source': source, 'stdin': stdin, 'timeout': 2000}
     r = requests.post(settings.JUDGER_URL+"python3", json=data)
-    print(r.text)
     response = json.loads(r.text)
     cases, verdict = match(expected_output, response)
-    result = {'cases':cases, 'verdict':verdict}
+    result = {'cases': cases, 'verdict': verdict}
     return result
 
 
@@ -49,7 +46,7 @@ def match(expected_output, response):
     result = []
     response_output = parse_stdout(response['stdout'])
     status = response['status']
-    verdict = status_dict[status]
+    verdict = STATUS[status]
     for expected, got in zip(expected_output, response_output):
         if expected.strip() == got.strip():
             result.append(Attempt.ACCEPTED if status == 'OK' else Attempt.RUNTIME_ERROR)
