@@ -41,7 +41,7 @@ class JudgerTestCase(TestCase):
 class PublicViewsTest(TestCase):
     """
     Test views that can be accessed by both 
-    anynomous and authenticated users.
+    anonymous and authenticated users.
     """
     def setUp(self):
         self.factory = RequestFactory()
