@@ -7,36 +7,6 @@
         margin-right: 2px; 
         margin-bottom: -4px;
     }
-    .solved {
-        fill: #4acc81
-    }
-    .unsolved {
-        fill: #d5e2ec
-    }
-    .week {
-        transition: all .2s ease-in-out;
-        max-width: 24em;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(0, 0, 0, .04);
-    }
-    .week:hover {
-        transform: scale(1.025);
-        cursor: pointer;
-    }
-    .completed {
-        color: #4acc81;
-        margin-top: 1px;
-        display: inline-block;    
-    }
-    a.div-link {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        text-decoration: none;
-        z-index: 10;
-    }
 </style>
 <h2>Latihan</h2>
 <br>
@@ -44,13 +14,13 @@
 <div class="card week">
     <div class="card-body">
       <h4 class="card-title">{{contest.name}}</h4>
-      <p style="margin-top:-0.5em; margin-bottom:1.25em;"class="card-text">
+      <p class="card-text">
           {{contest.description}}
     </p>
     {% if user.is_authenticated and contest|completed:user  %}
     <l class="completed">Completed!</l>
     {% else %}
-    <div style="display:inline-block; margin-left:2px;">
+    <div class="user-progress">
         {% for badge in contest|progress:user %}
         <svg class="checkbox" width=18 height=18 data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 92">
             <path class="{% if badge %}solved{% else %}unsolved{% endif %}"

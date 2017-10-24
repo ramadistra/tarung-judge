@@ -165,3 +165,64 @@ pre {
 .nav-item {
     margin: 0.5em 0;
 }
+
+.solved {
+    fill: #4acc81
+}
+
+.unsolved {
+    fill: #d5e2ec
+}
+
+.week {
+    transition: all .2s ease-in-out;
+    max-width: 24em;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, .04);
+}
+
+.week:hover {
+    transform: scale(1.025);
+    cursor: pointer;
+}
+
+.completed {
+    color: #4acc81;
+    margin-top: 1px;
+    display: inline-block;    
+}
+
+a.div-link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.card-text {
+    margin-top:-0.5em; 
+    margin-bottom:1.25em;
+}
+
+.user-progress {
+    display:inline-block; 
+    margin-left:2px;
+}
+
+.category-body {
+    margin:2em 0 1.5em 0;
+}
+
+.category-title{
+    margin-bottom: 0.125em;
+}
+
+.category-items {
+    margin-top: 0.5em;
+    list-style-type: none;
+    padding: 0;
+    margin-left: 1px;
+}
