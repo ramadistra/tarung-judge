@@ -6,6 +6,6 @@ install:
   - pipenv install -d --system
 script:
   - ./manage.py collectstatic
-  - coverage run --source='.' manage.py test
-  - coverage report --include="onlinejudge/*"
+  - coverage run --source='./onlinejudge' manage.py test
+  - coverage report
 after_success: coveralls
