@@ -10,8 +10,19 @@ class ChoiceInline(admin.StackedInline):
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,          {'fields': ['title', 'contest', 'category', 'difficulty', 'description', 'template', ]}),
-        ('Details',     {'fields': ['author', 'slug', 'published_date']}),
+        (None, {
+            'fields': [
+                'title',
+                'contest',
+                'category',
+                'difficulty',
+                'description',
+                'template',
+            ]
+        }),
+        ('Details', {
+            'fields': ['author', 'slug', 'published_date']
+        }),
     ]
     inlines = [ChoiceInline]
 
@@ -26,7 +37,7 @@ class QuestionAdmin(admin.ModelAdmin):
         """
         if request.user.is_superuser:
             return self.readonly_fields
-        return self.readonly_fields + ('author',)
+        return self.readonly_fields + ('author', )
 
 
 class AttemptAdmin(admin.ModelAdmin):
@@ -34,7 +45,8 @@ class AttemptAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return self.readonly_fields
         # Make all fields read-only.
-        return self.readonly_fields + tuple(f.name for f in obj._meta.get_fields())
+        return self.readonly_fields + tuple(f.name
+                                            for f in obj._meta.get_fields())
 
 
 admin.site.register(Question, QuestionAdmin)

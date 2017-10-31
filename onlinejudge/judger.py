@@ -5,7 +5,6 @@ from django.conf import settings
 
 from .models import Attempt
 
-
 STATUS = {
     'OK': Attempt.ACCEPTED,
     'Runtime Error': Attempt.RUNTIME_ERROR,
@@ -32,9 +31,8 @@ def judge(source, question):
     cases = question.case_set.all()
     stdin = [case.stdin.replace("\r", "") + "\n" for case in cases]
     expected_output = [case.stdout.replace("\r", "") + "\n" for case in cases]
-
     data = {'source': source, 'stdin': stdin, 'timeout': 2000}
-    r = requests.post(settings.JUDGER_URL+"python3", json=data)
+    r = requests.post(settings.JUDGER_URL + "python3", json=data)
     response = json.loads(r.text)
     cases, verdict = match(expected_output, response)
     result = {'cases': cases, 'verdict': verdict}
@@ -49,9 +47,11 @@ def match(expected_output, response):
     verdict = STATUS[status]
     for expected, got in zip(expected_output, response_output):
         if expected.strip() == got.strip():
-            result.append(Attempt.ACCEPTED if status == 'OK' else Attempt.RUNTIME_ERROR)
+            result.append(Attempt.ACCEPTED
+                          if status == 'OK' else Attempt.RUNTIME_ERROR)
         else:
-            result.append(Attempt.WRONG_ANSWER if status == 'OK' else Attempt.RUNTIME_ERROR)
+            result.append(Attempt.WRONG_ANSWER
+                          if status == 'OK' else Attempt.RUNTIME_ERROR)
             if verdict == Attempt.ACCEPTED:
                 verdict = Attempt.WRONG_ANSWER
 
@@ -75,7 +75,7 @@ def parse_stdout(output):
     # Compensate for new line at end of file.
     # Ignore first line: 1.in.
     for line in output[:-1].split('\n')[1:]:
-        if line == "%d.in" % (i+1):
+        if line == "%d.in" % (i + 1):
             stdouts.append(stdout[:-1])
             i += 1
             stdout = ""

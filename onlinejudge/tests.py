@@ -12,11 +12,14 @@ class JudgerTestCase(TestCase):
     def test_parse_response(self):
         # Parse normal output.
         output = "1.in\nHello\nWorld\n2.in\nWorld\n"
-        self.assertEqual(judger.parse_stdout(output), ["Hello\nWorld", "World"])
+        self.assertEqual(
+            judger.parse_stdout(output), ["Hello\nWorld", "World"])
 
         # Parse malicious output.
         output = "1.in\nHello\nWorld\n2.in\nWorld\n2.in\nWorld\n"
-        self.assertEqual(judger.parse_stdout(output), ["Hello\nWorld", "World\n2.in\nWorld"])
+        self.assertEqual(
+            judger.parse_stdout(output),
+            ["Hello\nWorld", "World\n2.in\nWorld"])
 
     def test_match(self):
         # Correct output.
@@ -26,7 +29,8 @@ class JudgerTestCase(TestCase):
             'stdout': '1.in\nHello\nWorld\n2.in\nWorld\nHello\n',
             'status': 'OK'
         }
-        self.assertEqual(judger.match(expected_out, response), ([correct, correct], True))
+        self.assertEqual(
+            judger.match(expected_out, response), ([correct, correct], True))
 
         # Wrong output.
         wrong = Attempt.WRONG_ANSWER
@@ -35,21 +39,23 @@ class JudgerTestCase(TestCase):
             'stdout': '1.in\nHello\nWorld\n2.in\nWorld\n2.in\nWorld\n',
             'status': 'OK'
         }
-        self.assertEqual(judger.match(expected_out, response), ([correct, wrong], False))
+        self.assertEqual(
+            judger.match(expected_out, response), ([correct, wrong], False))
 
 
 class PublicViewsTest(TestCase):
     """
-    Test views that can be accessed by both 
+    Test views that can be accessed by both
     anonymous and authenticated users.
     """
+
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create_user(
             username='test', email='test@case.com', password='test_case')
         self.public_views = [
-            ('/', views.home), 
-            ('/scoreboard', views.leaderboard), 
+            ('/', views.home),
+            ('/scoreboard', views.leaderboard),
             ('/activity', views.activity),
             ('/activity', views.activity),
         ]
@@ -95,12 +101,11 @@ class QuestionViewsTest(TestCase):
         self.user = User.objects.create_user(
             username='test', email='test@case.com', password='test_case')
         self.question = Question(
-            title = "Test Question",
-            description = "This is a test.",
-            slug = "test-question",
-            difficulty = 20,
-            template = "# Hello"
-        )
+            title="Test Question",
+            description="This is a test.",
+            slug="test-question",
+            difficulty=20,
+            template="# Hello")
         self.question.save()
 
     def test_question_details(self):
@@ -115,17 +120,22 @@ class QuestionViewsTest(TestCase):
         # Anonymous user cannot submit a question and will be redirected.
         request = self.factory.post(
             '/question/%s/submit' % self.question.slug,
-            data = {'source':'print("Test!")'}
-            )
+            data={
+                'source': 'print("Test!")'
+            })
         request.user = AnonymousUser()
         response = views.submit(request, self.question.slug)
-        self.assertEqual(response.url, "/login?next=/question/%s/submit" % self.question.slug)
+        self.assertEqual(
+            response.url,
+            "/login?next=/question/%s/submit" % self.question.slug)
 
 
 class LatestQuestionsTest(TestCase):
     def setUp(self):
-        self.contest = Contest(name="Test", slug="test", description="con test")
+        self.contest = Contest(
+            name="Test", slug="test", description="con test")
         self.category = Category(name="Tests")
 
     def test_latest_questions(self):
-        latest_questions = app_filters.latest_questions(self.category, self.contest)
+        latest_questions = app_filters.latest_questions(
+            self.category, self.contest)

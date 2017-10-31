@@ -31,11 +31,7 @@ class Question(models.Model):
     EASY = 20
     MEDIUM = 40
     HARD = 70
-    DIFFICULTY_CHOICES = (
-        (EASY, 'Mudah'),
-        (MEDIUM, 'Sedang'),
-        (HARD, 'Sulit')
-    )
+    DIFFICULTY_CHOICES = ((EASY, 'Mudah'), (MEDIUM, 'Sedang'), (HARD, 'Sulit'))
     difficulty_dict = dict(DIFFICULTY_CHOICES)
 
     # Question Body
@@ -44,7 +40,8 @@ class Question(models.Model):
 
     # Question Details
     slug = models.SlugField(max_length=64, unique=True, db_index=True)
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, choices=None)
+    author = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True, choices=None)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     contest = models.ForeignKey(Contest, on_delete=models.CASCADE, null=True)
     published_date = models.DateTimeField(default=timezone.now)
@@ -61,7 +58,8 @@ class Question(models.Model):
 
     @property
     def solves(self):
-        return self.attempt_set.filter(status=1).values("user").distinct().count()
+        return self.attempt_set.filter(
+            status=1).values("user").distinct().count()
 
     @property
     def total(self):
@@ -71,7 +69,7 @@ class Question(models.Model):
     def success_rate(self):
         if self.total == 0:
             return "0"
-        return "{0:.2f}".format(self.solves/self.total*100)
+        return "{0:.2f}".format(self.solves / self.total * 100)
 
     @property
     def difficulty_str(self):
@@ -86,7 +84,8 @@ class Question(models.Model):
         return bool(self.attempt_set.filter(status=1, user=user))
 
     def __str__(self):
-        return "Title: {}\nSuccess Rate:{}%".format(self.title, self.success_rate)
+        return "Title: {}\nSuccess Rate:{}%".format(self.title,
+                                                    self.success_rate)
 
     @permalink
     def get_absolute_url(self):
@@ -135,13 +134,12 @@ class Attempt(models.Model):
     def latest_solves(cls, user=None):
         if not user:
             # Get latest solves for all users.
-            return cls.objects.filter(first_solve=True).order_by('-attempt_date')
+            return cls.objects.filter(
+                first_solve=True).order_by('-attempt_date')
         # Get latest solves for user.
-        return cls.objects.filter(first_solve=True, user=user).order_by('-attempt_date')
+        return cls.objects.filter(
+            first_solve=True, user=user).order_by('-attempt_date')
 
     def __str__(self):
-        return "{} -> {} (status: {})".format(
-            self.user.username,
-            self.question.title,
-            self.status
-        )
+        return "{} -> {} (status: {})".format(self.user.username,
+                                              self.question.title, self.status)
