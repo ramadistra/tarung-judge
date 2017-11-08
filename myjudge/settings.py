@@ -12,11 +12,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 import dj_database_url
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -29,19 +27,12 @@ DEBUG = os.getenv("DEBUG") == "true"
 
 # TEST_RUNNER = 'myjudge.heroku_test_runner.HerokuDiscoverRunner'
 
-
 # Application definition
 
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'onlinejudge',
-    'cas'
-)
+INSTALLED_APPS = ('django.contrib.admin', 'django.contrib.auth',
+                  'django.contrib.contenttypes', 'django.contrib.sessions',
+                  'django.contrib.messages', 'django.contrib.staticfiles',
+                  'onlinejudge', 'cas')
 
 MIDDLEWARE_CLASSES = (
     # Simplified static file serving.
@@ -55,8 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'cas.middleware.CASMiddleware'
-)
+    'cas.middleware.CASMiddleware')
 
 ROOT_URLCONF = 'myjudge.urls'
 
@@ -66,7 +56,8 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
-            'debug': True,
+            'debug':
+            True,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -78,7 +69,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myjudge.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -95,16 +85,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -116,7 +110,6 @@ TIME_ZONE = 'Asia/Jakarta'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
 
 # Update database configuration with $DATABASE_URL.
 db_from_env = dj_database_url.config(conn_max_age=500)
@@ -136,9 +129,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
+STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'), )
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
@@ -149,11 +140,14 @@ AUTHENTICATION_BACKENDS = (
     'cas.backends.CASBackend',
 )
 
-CAS_RESPONSE_CALLBACKS = ('myjudge.callbackfunction.callbackfunction',)
+CAS_RESPONSE_CALLBACKS = ('myjudge.callbackfunction.callbackfunction', )
 
 # My settings
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = "/login"
 JUDGER_URL = os.getenv("JUDGER_URL")
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-judge.herokuapp.com']
+try:
+    ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split()
+except AttributeError:
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 CAS_SERVER_URL = "http://sso.ui.ac.id/cas2/dev"
