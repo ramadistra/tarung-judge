@@ -1,11 +1,9 @@
 from json import JSONDecodeError
-from requests import ConnectionError
 
 from django.http import HttpResponse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
-from django.utils.datastructures import MultiValueDictKeyError
 
 from .models import Question, Attempt, User, Category, Contest
 from .judger import judge
@@ -73,13 +71,8 @@ def detail(request, slug):
 def submit(request, slug):
     user = request.user
     question = get_object_or_404(Question, slug=slug)
-
-    try:
-        source = request.POST["source"]
-    except MultiValueDictKeyError:
-        source = ""
+    source = request.POST.get("source", "")
     attempt = Attempt(user=user, question=question)
-
     try:
         result = judge(source, question)
     except (ConnectionError, JSONDecodeError):
