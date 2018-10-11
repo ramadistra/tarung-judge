@@ -5,7 +5,7 @@
 Online Judge dibuat dengan django dan [judger](https://github.com/ramadistra/judger).
 
 ### Fitur:
-- Scoreboard
+- Scoreboard.
 - Login dengan SSO UI.
 - Gak bisa dihack Kusuman.
 
