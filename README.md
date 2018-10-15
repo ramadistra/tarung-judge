@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.org/ramadistra/tarung-judge.svg?branch=master)](https://travis-ci.org/ramadistra/tarung-judge)
 [![Coverage Status](https://coveralls.io/repos/github/ramadistra/tarung-judge/badge.svg?branch=master)](https://coveralls.io/github/ramadistra/tarung-judge?branch=master)  
 
+Coveragenya ga 80%, ga lolos ppw
+
 Online Judge dibuat dengan django dan [judger](https://github.com/ramadistra/judger).
 
 ### Fitur:
